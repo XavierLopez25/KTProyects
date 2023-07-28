@@ -14,6 +14,13 @@ fun main(args: Array<String>) {
     println((if (isPalindrome(word)) "The word $word is a palindrome." else "The word $word isn't a palindrome."))
     println((if (isPalindrome(word2)) "The word $word is a palindrome." else "The word $word isn't a palindrome."))
 
+    //Task 4: Add a function that says "Hi, (name)!"
+    var nameList: List<String> = listOf("Xavier", "Aroldo", "Javier", "James")
+    nameList = nameList.map { name -> "Hi $name!" }
+    nameList.forEach{name -> println(name)}
+
+
+
 }
 
 fun numberAverage(_numbersList: List<Int>): Double{
@@ -21,7 +28,7 @@ fun numberAverage(_numbersList: List<Int>): Double{
     return sumNumbers.toDouble()/_numbersList.size
 }
 
-fun isPalindrome(inputWord: String): Boolean = inputWord.reversed() == inputWord 
+fun isPalindrome(inputWord: String): Boolean = inputWord.reversed() == inputWord
 
 
 
