@@ -1,3 +1,5 @@
+import jdk.dynalink.Operation
+
 fun main(args: Array<String>) {
 
     //Task 1: Calculate average of a list of numbers
@@ -19,16 +21,23 @@ fun main(args: Array<String>) {
     nameList = nameList.map { name -> "Hi $name!" }
     nameList.forEach{name -> println(name)}
 
+    //Task 5: performOperation lambda
+    println("The result of the sum 7+8 is: ${lambdaOperation(7,8) { a, b -> a + b }}")
+    println("The result of the sum 1-6 is: ${lambdaOperation(7,8) { a, b -> a - b }}")
 
 
 }
 
-fun numberAverage(_numbersList: List<Int>): Double{
-    val sumNumbers = _numbersList.reduce{ counter, num -> counter + num}
-    return sumNumbers.toDouble()/_numbersList.size
+fun numberAverage(numbersList: List<Int>): Double{
+    val sumNumbers = numbersList.reduce{ counter, num -> counter + num}
+    return sumNumbers.toDouble()/numbersList.size
 }
 
 fun isPalindrome(inputWord: String): Boolean = inputWord.reversed() == inputWord
+
+fun lambdaOperation(num1: Int, num2: Int, operation: (Int, Int) -> Int): Int{
+    return operation(num1, num2)
+}
 
 
 
