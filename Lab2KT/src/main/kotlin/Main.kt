@@ -8,7 +8,11 @@ fun main(args: Array<String>) {
     val oddNumbers: List<Int> = numberList.filter { it % 2 == 1 }
     println("The odd numbers from the list are: $oddNumbers \n")
 
-    
+    //Task 3: Check if a word is a palindrome
+    val word = "radar"
+    val word2 = "nothing"
+    println((if (isPalindrome(word)) "The word $word is a palindrome." else "The word $word isn't a palindrome."))
+    println((if (isPalindrome(word2)) "The word $word is a palindrome." else "The word $word isn't a palindrome."))
 
 }
 
@@ -17,6 +21,7 @@ fun numberAverage(_numbersList: List<Int>): Double{
     return sumNumbers.toDouble()/_numbersList.size
 }
 
+fun isPalindrome(inputWord: String): Boolean = inputWord.reversed() == inputWord 
 
 
 
