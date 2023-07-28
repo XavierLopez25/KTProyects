@@ -1,4 +1,3 @@
-import jdk.dynalink.Operation
 
 fun main(args: Array<String>) {
 
@@ -13,18 +12,31 @@ fun main(args: Array<String>) {
     //Task 3: Check if a word is a palindrome
     val word = "radar"
     val word2 = "nothing"
-    println((if (isPalindrome(word)) "The word $word is a palindrome." else "The word $word isn't a palindrome."))
-    println((if (isPalindrome(word2)) "The word $word is a palindrome." else "The word $word isn't a palindrome."))
+    println((if (isPalindrome(word)) "\nThe word $word is a palindrome." else "\nThe word $word isn't a palindrome."))
+    println((if (isPalindrome(word2)) "\nThe word $word is a palindrome." else "\nThe word $word isn't a palindrome."))
 
     //Task 4: Add a function that says "Hi, (name)!"
     var nameList: List<String> = listOf("Xavier", "Aroldo", "Javier", "James")
-    nameList = nameList.map { name -> "Hi $name!" }
+    nameList = nameList.map { name -> "\nHi $name!" }
     nameList.forEach{name -> println(name)}
 
     //Task 5: performOperation lambda
-    println("The result of the sum 7+8 is: ${lambdaOperation(7,8) { a, b -> a + b }}")
-    println("The result of the sum 1-6 is: ${lambdaOperation(7,8) { a, b -> a - b }}")
+    println("\nThe result of the sum 7+8 is: ${lambdaOperation(7,8) { a, b -> a + b }}")
+    println("\nThe result of the sum 1-6 is: ${lambdaOperation(7,8) { a, b -> a - b }}")
 
+    //Task 6: Working with Data Class
+    val person = Person("Xavier", 18, "Male")
+    val person2 =  Person("Alex" , 22, "Female")
+    val listStudent =  mutableListOf<Student>()
+
+    val student = personToStudentMap(person, listStudent.size)
+    val student1 = personToStudentMap(person2, listStudent.size)
+
+    listStudent.add(student)
+    listStudent.add(student1)
+    listStudent.forEach{
+        student_ -> println(student_.toString())
+    }
 
 }
 
@@ -37,6 +49,18 @@ fun isPalindrome(inputWord: String): Boolean = inputWord.reversed() == inputWord
 
 fun lambdaOperation(num1: Int, num2: Int, operation: (Int, Int) -> Int): Int{
     return operation(num1, num2)
+}
+
+data class  Person(val name: String, val age: Int, val gender: String)
+
+data class Student(val name: String, val age: Int, val gender: String, val studentId: Int){
+    override fun toString(): String{
+        return "\nThe student $name has $age y/o."
+    }
+}
+
+fun personToStudentMap(person: Person, length: Int): Student{
+    return Student(person.name, person.age, person.gender , length + 1)
 }
 
 
