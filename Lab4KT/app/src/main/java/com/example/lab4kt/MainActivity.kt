@@ -64,9 +64,8 @@ class MainActivity : ComponentActivity() {
                             val items = remember { mutableStateListOf<Item>() }
                             val addItem: (Item) -> Unit = { item -> items.add(item) }
 
-                            //Future functions to use
-                            //LabelAndPlaceHolders()
-                            //MyLazyColumn()
+                            LabelAndPlaceHolders(addItem)
+                            MyLazyColumn(items)
                         }
                     }
                 }
@@ -109,5 +108,31 @@ fun LabelAndPlaceHolders(addItem: (MainActivity.Item) -> Unit) {
         }
     }) {
         Text("Add Recipe")
+    }
+}
+
+@Composable
+fun MyLazyColumn(items: List<MainActivity.Item>) {
+    LazyColumn {
+        items(items) { item ->
+            ItemCard(item)
+        }
+    }
+}
+
+@Composable
+fun ItemCard(item: MainActivity.Item) {
+    Row(
+        horizontalArrangement = Arrangement.spacedBy(16.dp),
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(8.dp)
+    ) {
+        Image(
+            painter = rememberImagePainter(item.imageUrl),
+            contentDescription = null,  // Consider providing a proper content description
+            modifier = Modifier.size(50.dp, 50.dp)
+        )
+        Text(text = item.name)
     }
 }
