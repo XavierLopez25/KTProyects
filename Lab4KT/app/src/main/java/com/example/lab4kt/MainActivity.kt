@@ -26,12 +26,12 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.material3.TopAppBar
 import androidx.compose.ui.unit.dp
-import com.example.myapplication.ui.theme.MyApplicationTheme
 import coil.compose.rememberImagePainter
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.mutableStateListOf
+import com.example.lab4kt.ui.theme.Lab4KTTheme
 
 class MainActivity : ComponentActivity() {
     data class Item(val name: String, val imageUrl: String)
@@ -75,18 +75,39 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-    @Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
 @Composable
-fun GreetingPreview() {
-    Lab4KTTheme {
-        Greeting("Android")
+fun LabelAndPlaceHolders(addItem: (MainActivity.Item) -> Unit) {
+    var text1 by remember { mutableStateOf(TextFieldValue("")) }
+    var text2 by remember { mutableStateOf(TextFieldValue("")) }
+
+    Row(
+        horizontalArrangement = Arrangement.spacedBy(16.dp),
+        modifier = Modifier.fillMaxWidth()
+    ) {
+        TextField(
+            value = text1,
+            onValueChange = { text1 = it },
+            label = { Text(text = "Enter food element") },
+            placeholder = { Text(text = "Enter food name") },
+            modifier = Modifier.weight(1f)
+        )
+
+        TextField(
+            value = text2,
+            onValueChange = { text2 = it },
+            label = { Text(text = "Image URL") },
+            placeholder = { Text(text = "Enter URL") },
+            modifier = Modifier.weight(1f)
+        )
+    }
+
+    Button(onClick = {
+        if (text1.text.isNotBlank() && text2.text.isNotBlank()) {
+            addItem(MainActivity.Item(text1.text, text2.text))
+            text1 = TextFieldValue("")
+            text2 = TextFieldValue("")
+        }
+    }) {
+        Text("Add Recipe")
     }
 }
