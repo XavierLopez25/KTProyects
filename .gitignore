@@ -22,3 +22,13 @@
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 replay_pid*
+
+Lab4KT/.idea/
+Lab4KT/app/src/main/java/com/example/lab4kt/MainActivity.kt
+Lab5KT/.idea/misc.xml
+Lab5KT/app/src/main/java/com/example/lab5kt/MainActivity4.kt
+Lab5KT/app/src/main/res/values/strings.xml
+Lab6KT/.idea/
+Lab4Test/
+commit.patch
+
