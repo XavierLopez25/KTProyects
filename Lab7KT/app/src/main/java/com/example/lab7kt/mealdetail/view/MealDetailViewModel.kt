@@ -3,7 +3,7 @@ package com.example.lab7kt.mealdetail.view
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.lab7kt.mealdetail.repository.MealDetailRepository
-import com.example.lab7kt.navigation.response.MealDetailResponse
+import com.example.lab7kt.networking.response.MealDetailResponse
 
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

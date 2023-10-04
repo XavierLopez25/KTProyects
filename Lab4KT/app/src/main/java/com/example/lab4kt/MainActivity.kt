@@ -103,8 +103,8 @@ fun LabelAndPlaceHolders(addItem: (MainActivity.Item) -> Unit) {
     Button(onClick = {
         if (text1.text.isNotBlank() && text2.text.isNotBlank()) {
             addItem(MainActivity.Item(text1.text, text2.text))
-            text1 = TextFieldValue("")
-            text2 = TextFieldValue("")
+            //text1 = TextFieldValue("")
+            //text2 = TextFieldValue("")
         }
     }) {
         Text("Add Recipe")

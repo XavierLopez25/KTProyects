@@ -1,4 +1,4 @@
-package com.example.lab7kt.navigation.response
+package com.example.lab7kt.networking.response
 
 import com.google.gson.annotations.SerializedName
 

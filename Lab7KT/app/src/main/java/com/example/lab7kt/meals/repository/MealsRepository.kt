@@ -1,7 +1,7 @@
 package com.example.lab7kt.meals.repository
 
-import com.example.lab7kt.MealsWebService
-import com.example.lab7kt.navigation.response.MealsCategoriesResponse
+import com.example.lab7kt.networking.MealsWebService
+import com.example.lab7kt.networking.response.MealsCategoriesResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

@@ -1,8 +1,8 @@
-package com.example.lab7kt
+package com.example.lab7kt.networking
 
-import com.example.lab7kt.navigation.response.CategoriesResponse
-import com.example.lab7kt.navigation.response.MealDetailResponse
-import com.example.lab7kt.navigation.response.MealsCategoriesResponse
+import com.example.lab7kt.networking.response.CategoriesResponse
+import com.example.lab7kt.networking.response.MealDetailResponse
+import com.example.lab7kt.networking.response.MealsCategoriesResponse
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query
