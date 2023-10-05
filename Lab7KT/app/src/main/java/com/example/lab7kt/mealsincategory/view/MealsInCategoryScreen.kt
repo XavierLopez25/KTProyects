@@ -31,32 +31,41 @@ import androidx.navigation.NavController
 import coil.compose.rememberImagePainter
 
 
+// Composable function for the screen that displays meals in a given category.
 @Composable
 fun MealsInCategoryScreen(categoryId: String, navController: NavController) {
+    // Obtains an instance of the ViewModel for this screen.
     val viewModel: MealsInCategoryViewModel = viewModel()
+
+    // Remembered state for the meals list.
     val rememberedMeals: MutableState<List<CategoryResponse>> = remember { mutableStateOf(emptyList()) }
 
+    // Request meals based on the category ID and update the remembered state.
     viewModel.getMealsInCategory(categoryId) { response ->
         val mealsFromTheApi = response?.categories
         rememberedMeals.value = mealsFromTheApi.orEmpty()
     }
 
+    // LazyColumn to efficiently display a potentially large list of meals.
     LazyColumn {
         items(rememberedMeals.value) { meal ->
             Surface(
                 modifier = Modifier
                     .fillMaxWidth()
                     .clickable {
+                        // Navigate to the details screen when a meal is clicked.
                         navController.navigate("${NavigationState.Detail.route}/${meal.idmeal}")
                     }
                     .padding(8.dp),
             ) {
+                // Row layout for displaying each meal with its image on the left and name on the right.
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(16.dp),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
+                    // Display the meal's image.
                     Image(
                         painter = rememberImagePainter(
                             data = meal.mealthumb,
@@ -69,7 +78,11 @@ fun MealsInCategoryScreen(categoryId: String, navController: NavController) {
                             .size(50.dp)
                             .background(Color.Gray)
                     )
+
+                    // Spacer for adding space between the image and the text.
                     Spacer(modifier = Modifier.width(16.dp))
+
+                    // Display the meal's name.
                     Text(
                         text = meal.name,
                         style = MaterialTheme.typography.headlineLarge,
@@ -79,5 +92,4 @@ fun MealsInCategoryScreen(categoryId: String, navController: NavController) {
         }
     }
 }
-
 

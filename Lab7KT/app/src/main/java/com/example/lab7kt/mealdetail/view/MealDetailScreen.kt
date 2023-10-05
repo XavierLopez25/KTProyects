@@ -30,35 +30,36 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.rememberImagePainter
 
 
+/**
+ * Composable screen to display detailed information about a specific meal.
+ *
+ * @param mealId The ID of the meal to fetch and display details for.
+ */
 @Composable
 fun MealDetailScreen(mealId: String) {
 
+    // Initialize the view model
     val viewModel: MealDetailViewModel = viewModel()
 
+    // Use LaunchedEffect to execute side-effecting code (fetching the meal details)
+    // only once when the mealId changes.
     LaunchedEffect(mealId) {
         viewModel.getMealDetail(mealId)
     }
 
+    // Observe the meal detail from the view model
     val mealDetail by viewModel.mealDetail.collectAsState(null)
 
-
-
-    Surface(
-        modifier = Modifier.fillMaxSize(),
-    ) {
+    // Surface provides a container, useful for background, elevation, etc.
+    Surface(modifier = Modifier.fillMaxSize()) {
         if (mealDetail != null) {
             val meal = mealDetail!!.meals?.first()
             meal?.let {
-                Card(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(16.dp),
-                ) {
-                    Column(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(16.dp)
-                    ) {
+                // Card provides a styled surface, often used for UI items with elevation
+                Card(modifier = Modifier.fillMaxWidth().padding(16.dp)) {
+                    Column(modifier = Modifier.fillMaxWidth().padding(16.dp)) {
+
+                        // Display the meal's image with a crossfade effect
                         Image(
                             painter = rememberImagePainter(
                                 data = meal.strMealThumb,
@@ -67,14 +68,12 @@ fun MealDetailScreen(mealId: String) {
                                 }
                             ),
                             contentDescription = "Meal Image",
-                            modifier = Modifier
-                                .size(50.dp)
-                                .background(Color.Gray)
+                            modifier = Modifier.size(50.dp).background(Color.Gray)
                         )
 
                         Spacer(modifier = Modifier.height(16.dp))
 
-                        // Meal Name
+                        // Display the name of the meal
                         Text(
                             text = it.strMeal,
                             fontWeight = FontWeight.Bold
@@ -82,22 +81,18 @@ fun MealDetailScreen(mealId: String) {
 
                         Spacer(modifier = Modifier.height(8.dp))
 
-                        // Category and Area
+                        // Display the category and area of the meal in a row
                         Row(
                             modifier = Modifier.fillMaxWidth(),
                             horizontalArrangement = Arrangement.SpaceBetween
                         ) {
-                            Text(
-                                text = "Category: ${it.strCategory}",
-                            )
-                            Text(
-                                text = "Area: ${it.strArea}",
-                            )
+                            Text(text = "Category: ${it.strCategory}")
+                            Text(text = "Area: ${it.strArea}")
                         }
 
                         Spacer(modifier = Modifier.height(16.dp))
 
-                        // Instructions
+                        // Display cooking instructions
                         Text(
                             text = "Instructions:",
                             fontWeight = FontWeight.Bold
@@ -111,7 +106,7 @@ fun MealDetailScreen(mealId: String) {
                 }
             }
         } else {
-            // Loading
+            // Display a loading indicator if meal details aren't yet available
             Box(
                 modifier = Modifier.fillMaxSize(),
                 contentAlignment = Alignment.Center

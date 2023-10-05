@@ -34,16 +34,29 @@ import androidx.navigation.NavController
 import coil.compose.rememberImagePainter
 import com.example.lab7kt.networking.response.MealResponse
 
+
+/**
+ * This screen displays a list of meal categories using the Jetpack Compose UI toolkit.
+ * When a meal category is clicked, it navigates to the details of that category.
+ *
+ * @param navController NavController to handle the navigation events within the app.
+ */
 @Composable
 fun MealsCategoriesScreen(navController: NavController) {
+
+    // Acquire the viewModel for fetching meals.
     val viewModel: MealsCategoriesViewModel = viewModel()
+
+    // Initialize an empty list of meals that will be updated when data is fetched.
     val rememberedMeals: MutableState<List<MealResponse>> = remember { mutableStateOf(emptyList()) }
 
+    // Fetch meals and update the rememberedMeals state once the data is retrieved.
     viewModel.getMeals { response ->
         val mealsFromTheApi = response?.categories
         rememberedMeals.value = mealsFromTheApi.orEmpty()
     }
 
+    // Display the list of meals.
     LazyColumn {
         items(rememberedMeals.value) { meal ->
             Surface(
@@ -82,43 +95,6 @@ fun MealsCategoriesScreen(navController: NavController) {
                     }
                 }
             }
-        }
-    }
-}
-
-@Composable
-fun CategoryCard(meal: MealResponse, onClick: () -> Unit) {
-    Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(8.dp)
-            .clickable(onClick = onClick),
-        shape = RoundedCornerShape(8.dp)
-    ) {
-        Row(
-            modifier = Modifier
-                .padding(8.dp)
-                .fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            val painter = rememberImagePainter(
-                data = meal.imageUrl,
-                builder = {
-                    crossfade(true)
-                }
-            )
-            Image(
-                painter = painter,
-                contentDescription = meal.name,
-                modifier = Modifier
-                    .size(60.dp)
-                    .clip(CircleShape)
-                    .background(MaterialTheme.colorScheme.primary)
-            )
-            Spacer(modifier = Modifier.width(8.dp))
-            Text(
-                text = meal.name,
-            )
         }
     }
 }
