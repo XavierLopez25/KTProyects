@@ -1,26 +1,50 @@
 package com.example.lab7kt.mealsincategory.repository
 
-import com.example.lab7kt.MealsWebService
+import com.example.lab7kt.networking.MealsWebService
 
-import com.example.lab7kt.navigation.response.CategoriesResponse
+import com.example.lab7kt.networking.response.CategoriesResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
+/**
+ * Repository class responsible for fetching meals in a given category from a web service.
+ *
+ * @param webService An instance of the MealsWebService. If not provided, a default instance is used.
+ */
 class MealsInCategoryRepository(private val webService: MealsWebService = MealsWebService()) {
+
+    /**
+     * Fetches meals for a specific category and invokes the provided callback on successful API response.
+     *
+     * @param categoryId The identifier of the meal category.
+     * @param successCallback The callback to be invoked on successful API response. It is passed the CategoriesResponse.
+     */
     fun getMealsInCategory(categoryId: String, successCallback: (response: CategoriesResponse?) -> Unit) {
-        println("Repository getMealsInCategory Invoked with categoryId: $categoryId")
+        webService.getMealsInCategory(categoryId).enqueue(object : Callback<CategoriesResponse> {
 
-        return webService.getMealsInCategory(categoryId).enqueue(object : Callback<CategoriesResponse> {
+            /**
+             * Callback method to be invoked when the API call is successful and receives a response.
+             *
+             * @param call The original call.
+             * @param response The received response.
+             */
             override fun onResponse(call: Call<CategoriesResponse>, response: Response<CategoriesResponse>) {
-                println("API Call successful. Response: ${response.body()}, Error: ${response.errorBody()}")
-
-                if (response.isSuccessful)
+                // Check if the response is successful
+                if (response.isSuccessful) {
+                    // Pass the response body to the provided success callback
                     successCallback(response.body())
+                }
             }
 
+            /**
+             * Callback method to be invoked when the API call fails.
+             *
+             * @param call The original call.
+             * @param t The exception/error that caused the failure.
+             */
             override fun onFailure(call: Call<CategoriesResponse>, t: Throwable) {
-                println("API Call failed. Error: $t")
+                // TODO: Handle the failure scenario, e.g., invoking another callback, logging the error, etc.
             }
         })
     }

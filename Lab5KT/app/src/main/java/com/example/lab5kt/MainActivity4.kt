@@ -171,4 +171,3 @@ fun OptionAction(trailingIcon: ImageVector?, toggle: Boolean, isChecked: Mutable
         )
     }
 }
-
